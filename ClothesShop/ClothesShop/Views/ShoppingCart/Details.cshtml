@@ -1,0 +1,77 @@
+﻿@model ClothesShop.Models.ShoppingCart
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ShoppingCart</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Sum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Paid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paid)
+        </dd>
+    </dl>
+    <h4>Items in Cart</h4>
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Price
+            </th>
+            <th>Count</th>
+        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@Html.DisplayFor(book => item.Name)</td>
+                <td>@Html.DisplayFor(book => item.Category)</td>
+                <td>@Html.DisplayFor(book => item.AvailableSize)</td>
+                <td>@Html.DisplayFor(book => item.Price)</td>
+
+            </tr>
+        }
+    </table>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+        @if (Model.Paid == false)
+        {
+            <input type="submit" value="Pay" class="btn btn-primary" />;
+        }
+        |@Html.ActionLink("Back to List", "Index")
+
+    </div>
+}
+
